@@ -1,0 +1,27 @@
+(defun isprime (n) 
+	(do ((x 2 (1+ x)))
+		 ((> x (sqrt n)) nil)
+		(when (zerop (mod n x))
+			(return-from isprime nil)))
+	t)
+
+(defun factors (n)
+	(let ((res nil))
+		(do ((i 2 (1+ i)))
+		 	 ((>= i n))
+			(when (zerop (mod n i))
+				(push i res)))
+		(reverse res)))
+
+(defun primefactors (n)
+	(remove-if-not #'isprime (factors n)))
+
+(defun maximum (ls)
+	(let ((x 0))
+		(dolist (i ls)
+			(when (> i x)
+				(setf x i)))
+		x))
+
+(defun main () 
+	(princ (maximum (primefactors 600851475143))))
